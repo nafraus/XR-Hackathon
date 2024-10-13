@@ -99,26 +99,6 @@ public class TcpServerClient : MonoBehaviour
         _networkMessageManager.ReceiveMessage(message);
     }
 
-    void DecodeInt(int code)
-    {
-        // Process the decoded integer
-        switch (code)
-        {
-            case 0:
-                Debug.Log("Received code: 0");
-                break;
-            case 1:
-                Debug.Log("Received code: 1");
-                break;
-        }
-    }
-
-    [Button]
-    public void InspectorSendMessage()
-    {
-        SendMessage("Your message here;");
-    }
-
     public void SendMessage(string message)
     {
         byte[] data = Encoding.ASCII.GetBytes(message);
