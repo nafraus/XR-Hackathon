@@ -451,7 +451,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dcf88b7ee3c94acc96bee97f4051327, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _networkMessageManager: {fileID: 0}
+  _networkMessageManager: {fileID: 536960156}
 --- !u!4 &119131554
 Transform:
   m_ObjectHideFlags: 0
@@ -1034,9 +1034,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e51b25d8eec445909be754c31a5f5c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  flux: {fileID: 0}
-  juice: {fileID: 0}
-  fire: {fileID: 0}
+  flux: {fileID: 1531609849}
+  juice: {fileID: 1159338999}
+  fire: {fileID: 1539247704}
 --- !u!4 &536960157
 Transform:
   m_ObjectHideFlags: 0
