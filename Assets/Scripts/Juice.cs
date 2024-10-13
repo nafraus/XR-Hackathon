@@ -19,9 +19,11 @@ public class Juice : MonoBehaviour
         //BETWEEN 280 - 500
         //500 = 0 
         //280 is highest
+        
         value *= -1;
         value += 500;
-        fillRate = value / 280;
+        fillRate = ((float) value) / 280f;
+        fillRate *= .33f;
 
         timeOfLastJuiceUpdate = Time.time;
     }
@@ -31,7 +33,9 @@ public class Juice : MonoBehaviour
     private void Update()
     {
         Vector3 scale = juiceScaler.localScale;
+        //Debug.Log(fillRate + drainRate);
         scale.y += (fillRate + drainRate) * Time.deltaTime;
+        scale.y = Mathf.Clamp(scale.y, 0.1f, 0.9f); 
         juiceScaler.localScale = scale;
 
         if (Time.time - timeOfLastJuiceUpdate >= 1f)

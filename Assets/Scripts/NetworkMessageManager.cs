@@ -21,14 +21,11 @@ public class NetworkMessageManager : MonoBehaviour
                 
                 flux.TryFluxInput(numbers);
                 break;
-            case '2': //Fire - nothing
-                break;
-            case '3': //Juice
+            case '2': //Juice
                 // Split by underscore and get the part after it
                 string numberPart = message.Split('_')[1];
                 // Convert the part after the underscore to an integer
                 int parsedNumber = int.Parse(numberPart);
-                Debug.Log("JUICE "+ numberPart);
                 juice.SetJuiceLevel(parsedNumber);
                 break;
         }

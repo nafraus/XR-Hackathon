@@ -42,7 +42,7 @@ public class TcpServerClient : MonoBehaviour
             GameManager.S.StartGame();
 
             // Send the message to the connected TcpServer.
-            stream.Write(data, 0, data.Length);
+            //stream.Write(data, 0, data.Length);
             Debug.Log("Sent: {0}" + message);
         }
         catch (SocketException e)

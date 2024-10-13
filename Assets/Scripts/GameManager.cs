@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Flux flux;
     [SerializeField] private Fire fire;
     [SerializeField] private Juice juice;
+    [SerializeField] private TcpServerClient tcp;
 
     public static GameManager S;
 
@@ -46,5 +47,6 @@ public class GameManager : MonoBehaviour
     private void WinGame()
     {
         hasWon = true;
+        tcp.SendMessage("you win");
     }
 }
