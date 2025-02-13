@@ -14,7 +14,7 @@ public class Fire : MonoBehaviour
 
     public void TryPutOutFire(int id)
     {
-        if (id == failureId) isFixed = true;
+        if (id == failureId) FixFire();
         //else()
     }
 

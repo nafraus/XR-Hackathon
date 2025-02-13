@@ -7,11 +7,25 @@ public class Extinguisher : MonoBehaviour
 {
     [SerializeField] private int ID;
 
+    [SerializeField] private Fire fire;
 
-    private void OnCollisionEnter(Collision other)
+    [SerializeField] private GameObject hoverObject;
+
+    public void Hover()
     {
-        Fire fire= other.gameObject.GetComponent<Fire>();
-        
-        if(fire != null) fire.TryPutOutFire(ID);
+        hoverObject.SetActive(true);
     }
+
+    public void Unhover()
+    {
+        hoverObject.SetActive(false);
+    }
+
+    public void Clicked()
+    {
+        if(fire != null) fire.TryPutOutFire(ID);
+        Unhover();
+    }
+    
+    
 }

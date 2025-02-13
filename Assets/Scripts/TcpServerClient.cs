@@ -2,9 +2,11 @@ using System;
 using System.Collections;
 using System.Net;
 using System.Net.Sockets;
+using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text;
 using UnityEngine;
 using NaughtyAttributes;
+using TMPro;
 
 public class TcpServerClient : MonoBehaviour
 {
@@ -16,8 +18,17 @@ public class TcpServerClient : MonoBehaviour
     private StringBuilder receivedData = new StringBuilder();
     [SerializeField] private NetworkMessageManager _networkMessageManager;
 
+    [SerializeField] private TMP_InputField ipField;
+    [SerializeField] private TMP_InputField portField;
+    [SerializeField] private GameObject ipCanvas;
+    [SerializeField] private GameObject connectedErrorMessage;
+    
+    //NOTE: Some UI logic is done through events, and is not implemented on this script.
+
     void Update()
     {
+        //if(Input.GetKeyDown(KeyCode.P)) StartClient();
+        
         if (client != null && client.Connected)
         {
             ReceiveData();
@@ -25,25 +36,31 @@ public class TcpServerClient : MonoBehaviour
     }
 
     [Button]
-    void StartClient()
+    public void StartClient()
     {
-        Connect(ipAddress, "Testing Message to connect to server.");
+        Connect(ipField.text,  Int32.Parse(portField.text),"Testing Message to connect to server.");
     }
 
-    void Connect(string server, string message)
+    void Connect(string server, int port, string message)
     {
         try
         {
-            client = new TcpClient(server, port);
+            client = new TcpClient(server,  port);
             byte[] data = Encoding.ASCII.GetBytes(message);
             stream = client.GetStream();
 
             Debug.Log(client.Connected);
-            GameManager.S.StartGame();
+            if(client.Connected) GameManager.S.StartGame();
+            else
+            {
+                connectedErrorMessage.SetActive(true);
+                return;
+            }
 
             // Send the message to the connected TcpServer.
             //stream.Write(data, 0, data.Length);
             Debug.Log("Sent: {0}" + message);
+            ipCanvas.SetActive(false);
         }
         catch (SocketException e)
         {
@@ -77,10 +94,13 @@ public class TcpServerClient : MonoBehaviour
 
                         // Keep the last incomplete message (if any)
                         receivedData.Clear();
+                        
+                        //Keeps last incomplete message. Do not want
+                        /*
                         if (messages.Length > 0 && !string.IsNullOrEmpty(messages[messages.Length - 1]))
                         {
                             receivedData.Append(messages[messages.Length - 1]);
-                        }
+                        }*/
                     }
                 }
             }
@@ -88,6 +108,7 @@ public class TcpServerClient : MonoBehaviour
         catch (Exception e)
         {
             Debug.LogError("Exception in ReceiveData: " + e.Message);
+            receivedData.Clear();
         }
     }
 

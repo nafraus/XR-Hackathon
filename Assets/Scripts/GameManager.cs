@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Fire fire;
     [SerializeField] private Juice juice;
     [SerializeField] private TcpServerClient tcp;
+    [SerializeField] private GameObject winObj;
 
     public static GameManager S;
 
@@ -25,6 +26,7 @@ public class GameManager : MonoBehaviour
      flux.BreakFlux();
      fire.BreakFire();
      juice.BreakJuice();
+     winObj.SetActive(false);
     }
 
 
@@ -36,6 +38,7 @@ public class GameManager : MonoBehaviour
     private bool hasWon = false;
     private void Update()
     {
+        if(Input.GetKeyDown(KeyCode.Space) ) WinGame();
         if (hasWon) return;
 
         if (EvaluateFixedPuzzles())
@@ -46,7 +49,9 @@ public class GameManager : MonoBehaviour
 
     private void WinGame()
     {
+        Debug.Log("Sending Winner Message");
         hasWon = true;
         tcp.SendMessage("you win");
+        winObj.SetActive(true);
     }
 }
